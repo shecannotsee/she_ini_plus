@@ -45,10 +45,19 @@ get_filename_component(cmake_upper_path ${CMAKE_SOURCE_DIR} DIRECTORY)
 
 ########################################################################################################################
 
+set(third_party "${CMAKE_SOURCE_DIR}/third_party")
+
+set(googletest "${third_party}/googletest")
+set(googletest_target "gtest" "gmock")
+
+set(include "${googletest}/include")
+set(lib     "${googletest}/lib")
+set(target  ${googletest_target})
+
 # include
-include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/src ${include})
 # lib
-link_directories()
+link_directories(${lib})
 
 ########################################################################################################################
 
@@ -58,7 +67,10 @@ file(GLOB_RECURSE TEST_SRC "${CMAKE_SOURCE_DIR}/test/*")
 
 # test target
 add_executable(${test_name} ${TEST_SRC} ${SRC})
-target_link_libraries(${test_name} "-pthread")
+target_link_libraries(${test_name} "-pthread"
+        -Wl,--start-group
+        ${target}
+        -Wl,--end-group)
 
 # lib target
 if (library STREQUAL "ON")
