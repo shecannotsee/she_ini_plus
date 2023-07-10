@@ -3,10 +3,14 @@
 //
 #include <iostream>
 #include "global_test_set.h"
-//#include "test_example.h"
+#include "test_example.h"
+#include "t1_disk_io_interface.h"
 
 int main() {
   std::cout << YELLOW_COLOR << "Start test " << RESET_COLOR << std::endl;
+  t1_disk_io_interface::main();
+
+
   testing::InitGoogleTest();
 
   if (RUN_ALL_TESTS()==0) {
