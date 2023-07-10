@@ -7,7 +7,7 @@
 
 int main() {
   std::cout << YELLOW_COLOR << "Start test " << RESET_COLOR << std::endl;
-  testing::InitGoogleTest();;
+  testing::InitGoogleTest();
 
   if (RUN_ALL_TESTS()==0) {
     std::cout << GREEN_COLOR << "Pass the test." << RESET_COLOR << std::endl;
