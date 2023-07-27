@@ -5,7 +5,7 @@
 #include "read_from_file.h"
 #include <stdexcept>
 
-she_ini_plus::read_from_file::read_from_file(std::string path) noexcept {
+she_ini_plus::read_from_file::read_from_file(const std::string& path) noexcept {
   file_handle_ = fopen(path.c_str(),"r");
   if (file_handle_ == NULL) {
     throw std::runtime_error("Failed to open file."); // 抛出运行时错误异常
