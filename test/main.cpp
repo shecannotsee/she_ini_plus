@@ -4,6 +4,7 @@
 #include <iostream>
 #include "global_test_set.h"
 #include "test_example.h"
+#include "disk_io/t_read_from_file.h"
 #include "t1_disk_io_interface.h"
 
 int main() {

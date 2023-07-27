@@ -1,0 +1,8 @@
+//
+// Created by shecannotsee on 23-7-27.
+//
+
+#ifndef SHE_INI_PLUS_TEST_DISK_IO_T_READ_FROM_FILE_H_
+#define SHE_INI_PLUS_TEST_DISK_IO_T_READ_FROM_FILE_H_
+
+#endif //SHE_INI_PLUS_TEST_DISK_IO_T_READ_FROM_FILE_H_
