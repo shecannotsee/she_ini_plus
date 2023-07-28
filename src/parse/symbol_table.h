@@ -6,7 +6,7 @@
 #define SHE_INI_PLUS_SRC_LEXER_SYMBOL_TABLE_H_
 
 #include <string>
-#include <tuple>
+#include <unordered_map>
 
 namespace she_ini_plus {
 
@@ -19,10 +19,12 @@ enum class SYMBOL_TYPE : int {
   OPERATOR,     ///< Operator,like '=','+' int c/c++
 };
 
-std::tuple<SYMBOL_TYPE,std::string> symbol_table[] {
-    {SYMBOL_TYPE::COMMENTS,     "//"},
-    {SYMBOL_TYPE::DELIMITER,    ";"},
-    {SYMBOL_TYPE::OPERATOR,     "="}
+
+std::unordered_map<std::string, SYMBOL_TYPE> symbol_table {
+    {"//",  SYMBOL_TYPE::COMMENTS},
+    {";",   SYMBOL_TYPE::DELIMITER},
+    {"\n",  SYMBOL_TYPE::DELIMITER},
+    {"=",   SYMBOL_TYPE::OPERATOR},
 };
 
 } // she_ini_plus
