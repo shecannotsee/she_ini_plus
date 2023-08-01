@@ -73,11 +73,15 @@ key = value
 
 注释通过`//`或者`#`来定义
 
+
+
 #### (2)通俗ini规则
 
 普通规则：section通过`[`定义开始，通过`]`定义结尾，key-value通过`=`来进行定义
 
-#### (3)key类型定义
+
+
+#### (3)key类型定义规则
 
 key类型通过`:`来定义，具体类型有：module、binary总是通过使用base64来对不可见数据进行处理
 
@@ -90,7 +94,9 @@ binary:she_ini_plus = c2hlX2luaV9wbHVz
 
 module对应的key应是相应的文件，module对应的value应是相应文件的section
 
-#### (4)引用定义
+
+
+#### (4)引用定义规则
 
 引用：将别的section中的key引用到本section中
 
@@ -102,6 +108,32 @@ keyxxx = 114514
 ```
 
 `&`后应该跟随一个section名，`:`后应跟随对应section的key，**引用只会在同级section中建立这种关系**
+
+
+
+#### (5)易于阅读以及分隔符规则
+
+若value长度过长可以使用`\`来进行换行操作（请注意，不要再`\`后加入任何字符，否则可能被当成转义来使用）
+
+```ini
+# 解析出来key是"value"
+key = valu\
+	  e
+# 解析出来key是"value;"
+key = value\;
+```
+
+默认使用`\n`当成分隔操作，也可以手动使用`;`来进行分隔操作
+
+```ini
+# 以下两种写法key解析出来均是"value"
+key = valu\
+      e
+key = valu\
+      e;
+```
+
+
 
 ### 5.一些其他的修改
 
