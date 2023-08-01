@@ -11,14 +11,15 @@ she_ini_plus::character_scanning::character_scanning(const std::string &file_pat
 }
 
 std::vector<char> she_ini_plus::character_scanning::getchar() {
-  std::vector<char> buffer = std::move(std::vector<char>(buffer_size_));
+  std::vector<char> buffer(buffer_size_);
 
   for (int i = 0; i < buffer_size_; ++i) {
     auto get_from_file = file_.get();
     if (file_handle::data_is_valid(get_from_file)) {
-      buffer.push_back(file_handle::valid_data(get_from_file));
+      buffer[i] = file_handle::valid_data(get_from_file);
     } else {
       buffer.resize(i);
+      break;
     }
   }
 
