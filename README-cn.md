@@ -1,6 +1,6 @@
 这是一个基于ini格式扩展的文件类型解析器
 
-#### 1.基本的ini
+### 1.基本的ini
 
 对于基本的ini格式
 
@@ -16,13 +16,13 @@ key = value
 
 section和key-value有着一对多的关系
 
-#### 2.简易ini的缺陷
+### 2.简易ini的缺陷
 
 简易的ini文件很难做到复杂关系的处理，并且很难做到模块化的支持
 
 为了支持复杂关系处理与模块化支持，我想通过增加key的type来统一解决该问题
 
-#### 3.对于缺陷的修复
+### 3.对于缺陷的修复
 
 root.ini
 
@@ -67,7 +67,44 @@ key = value
 
 
 
-#### 4.一些其他的修改
+### 4.规则总结
+
+#### (1)注释规则
+
+注释通过`//`或者`#`来定义
+
+#### (2)通俗ini规则
+
+普通规则：section通过`[`定义开始，通过`]`定义结尾，key-value通过`=`来进行定义
+
+#### (3)key类型定义
+
+key类型通过`:`来定义，具体类型有：module、binary总是通过使用base64来对不可见数据进行处理
+
+```ini
+# module
+module:node.ini = scetion1-1
+# binary
+binary:she_ini_plus = c2hlX2luaV9wbHVz
+```
+
+module对应的key应是相应的文件，module对应的value应是相应文件的section
+
+#### (4)引用定义
+
+引用：将别的section中的key引用到本section中
+
+```ini
+[section1]
+keyxxx = 114514
+[section2]
+&section1:keyxxx
+```
+
+`&`后应该跟随一个section名，`:`后应跟随对应section的key，**引用只会在同级section中建立这种关系**
+
+### 5.一些其他的修改
 
 - `;`不再用于表示注释，用类C语言的`//`来处理注释，并且`;`用来做结束符号处理
-- 让我想想
+- `#`可以用作注释
+
