@@ -28,13 +28,17 @@ class character_scanning {
 
  public:
   /**
-   * @brief set the size of the read buffer
-   * @param size
+   * @brief set the size of the read buffer.
+   * @param size buffer size
    */
   void set_buffer_size(int size) {
     buffer_size_ = size;
   }
 
+  /**
+   * @brief Get strings.
+   * @return string buffer
+   */
   std::vector<char> getchar();
 };
 
