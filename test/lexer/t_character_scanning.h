@@ -9,7 +9,7 @@
 
 TEST(character_scanning,getchar){
   she_ini_plus::character_scanning scanner("../test_file/t1_disk_io_interface");
-  // Adjust the size of the buffer to 5
+  // Adjust the size of the buffer to 5 bytes
   scanner.set_buffer_size(5);
 
   auto _1 = scanner.getchar();
