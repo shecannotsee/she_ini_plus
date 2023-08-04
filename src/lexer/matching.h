@@ -14,12 +14,16 @@ namespace she_ini_plus {
 
 class matching {
  public:
+  matching() = default;
+  ~matching() = default;
 
  private:
+  SYMBOL_TYPE symbol_type_{SYMBOL_TYPE::UNKNOWN};
+  std::string value_buffer_;
 
  public:
-  using token = std::tuple<TOKEN_TYPE,std::string>;
-  static token token_generation(std::vector<char> character_stream);
+  using token = std::tuple<SYMBOL_TYPE,std::string>;
+  token token_generation(std::vector<char> character_stream);
 
 };
 
