@@ -11,6 +11,8 @@
 namespace she_ini_plus {
 
 enum class SYMBOL_TYPE : int {
+  UNKNOWN,
+  WAITING,
   COMMENTS,     ///< Comments,like "//" in c/c++.
   DELIMITER,    ///< Delimiter,like ';' in c/c++.
   OPERATOR,     ///< Operator,like '=','+' int c/c++
@@ -19,25 +21,26 @@ enum class SYMBOL_TYPE : int {
   SECTION_END,  ///< "]"
   REFERENCE,    ///< "&"
   ESCAPE_CHAR,  ///< "'\'"
+  MAY_COMMENTS, ///< '/'
 };
 
-std::unordered_map<std::string, SYMBOL_TYPE> symbol_table {
-    {"//",  SYMBOL_TYPE::COMMENTS},
-    {"#",   SYMBOL_TYPE::COMMENTS},
+std::unordered_map<char, SYMBOL_TYPE> symbol_table {
+    {'/',   SYMBOL_TYPE::COMMENTS},
+    {'#',   SYMBOL_TYPE::COMMENTS},
 
-    {";",   SYMBOL_TYPE::DELIMITER},
-    {"\n",  SYMBOL_TYPE::DELIMITER},
+    {';',   SYMBOL_TYPE::DELIMITER},
+    {'\n',  SYMBOL_TYPE::DELIMITER},
 
-    {"=",   SYMBOL_TYPE::OPERATOR},
+    {'=',   SYMBOL_TYPE::OPERATOR},
 
-    {":",   SYMBOL_TYPE::TYPE_DEFINE},
+    {':',   SYMBOL_TYPE::TYPE_DEFINE},
 
-    {"[",   SYMBOL_TYPE::SECTION_BEGIN},
-    {"]",   SYMBOL_TYPE::SECTION_END},
+    {'[',   SYMBOL_TYPE::SECTION_BEGIN},
+    {']',   SYMBOL_TYPE::SECTION_END},
 
-    {"&",   SYMBOL_TYPE::REFERENCE},
+    {'&',   SYMBOL_TYPE::REFERENCE},
 
-    {"\\",  SYMBOL_TYPE::ESCAPE_CHAR},
+    {'\\',  SYMBOL_TYPE::ESCAPE_CHAR},
 };
 
 enum class TOKEN_TYPE : int {
