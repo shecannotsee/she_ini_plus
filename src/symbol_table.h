@@ -10,9 +10,12 @@
 
 namespace she_ini_plus {
 
+/**
+ * @brief State during lexical analysis.
+ */
 enum class SYMBOL_TYPE : int {
   UNKNOWN,
-  WAITING,
+  WAITING,      ///< Waiting for the next byte stream
   COMMENTS,     ///< Comments,like "//" in c/c++.
   DELIMITER,    ///< Delimiter,like ';' in c/c++.
   OPERATOR,     ///< Operator,like '=','+' int c/c++
@@ -25,7 +28,7 @@ enum class SYMBOL_TYPE : int {
 };
 
 std::unordered_map<char, SYMBOL_TYPE> symbol_table {
-    {'/',   SYMBOL_TYPE::COMMENTS},
+    {'/',   SYMBOL_TYPE::MAY_COMMENTS},
     {'#',   SYMBOL_TYPE::COMMENTS},
 
     {';',   SYMBOL_TYPE::DELIMITER},
@@ -43,7 +46,11 @@ std::unordered_map<char, SYMBOL_TYPE> symbol_table {
     {'\\',  SYMBOL_TYPE::ESCAPE_CHAR},
 };
 
+/**
+ * @brief Token type.
+ */
 enum class TOKEN_TYPE : int {
+  UNKNOWN,
   SECTION,      ///< Section in she_ini_plus
   TYPE,         ///< Type in she_ini_plus
   IDENTIFIERS,  ///< Identifiers,like 'a' in "int a","void a()" in c/c++.
