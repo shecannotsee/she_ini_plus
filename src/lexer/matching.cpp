@@ -44,5 +44,5 @@ she_ini_plus::matching::token she_ini_plus::matching::token_generation(std::vect
     }
   }
 
-  return std::make_pair(token_type_,value_buffer_);
+  return std::make_pair(symbol_type_,value_buffer_);
 }
