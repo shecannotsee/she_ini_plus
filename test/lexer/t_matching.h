@@ -21,11 +21,15 @@ TEST(a,b) {
   auto string_to_vector = [&character_stream](std::string str){
     std::copy(str.begin(), str.end(), std::back_inserter(character_stream));
   };
-  token return_token{TOKEN_TYPE::UNKNOWN,""};
+  token return_token{SYMBOL_TYPE ::UNKNOWN,""};
 
-  string_to_vector("#123");
+  // boundary test
+
+
+  // logical test
+  string_to_vector("#\n");
   return_token = matching_tool.token_generation(character_stream);
-  EXPECT_EQ(matching::get_token_type(return_token),TOKEN_TYPE::CONSTANTS);
+  EXPECT_EQ(matching::get_token_type(return_token),SYMBOL_TYPE::COMMENTS);
   EXPECT_EQ(matching::get_token_str(return_token),"123");
 
 
