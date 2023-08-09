@@ -18,8 +18,9 @@ class matching {
   ~matching() = default;
 
  private:
-  TOKEN_TYPE symbol_type_{TOKEN_TYPE::UNKNOWN}; ///< temp to save token type
-  std::string value_buffer_;                    ///< temp to save token str
+  SYMBOL_TYPE symbol_type_{SYMBOL_TYPE::UNKNOWN};   ///< temp to save matching status
+  TOKEN_TYPE token_type_{TOKEN_TYPE::UNKNOWN};      ///< temp to save token type
+  std::string value_buffer_;                        ///< temp to save token str
 
  public:
   using token = std::tuple<TOKEN_TYPE,std::string>;
