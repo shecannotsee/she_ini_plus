@@ -18,12 +18,35 @@ class matching {
   ~matching() = default;
 
  private:
-  SYMBOL_TYPE symbol_type_{SYMBOL_TYPE::UNKNOWN};
-  std::string value_buffer_;
+  TOKEN_TYPE symbol_type_{TOKEN_TYPE::UNKNOWN}; ///< temp to save token type
+  std::string value_buffer_;                    ///< temp to save token str
 
  public:
-  using token = std::tuple<SYMBOL_TYPE,std::string>;
+  using token = std::tuple<TOKEN_TYPE,std::string>;
+  /**
+   * @brief Convert char stream to token output
+   * @param character_stream char stream
+   * @return token,including the type and string of the token
+   */
   token token_generation(std::vector<char> character_stream);
+
+  /**
+   * @brief Get token type.
+   * @param return_token token_generation() return
+   * @return token type
+   */
+  static TOKEN_TYPE get_token_type(token return_token) {
+    std::get<0>(return_token);
+  }
+
+  /**
+   * @brief Get token string
+   * @param return_token token_generation() return
+   * @return token string,type is std::string
+   */
+  static std::string get_token_str(token return_token) {
+    std::get<1>(return_token);
+  }
 
 };
 
