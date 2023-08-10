@@ -4,45 +4,46 @@
 
 #include "matching.h"
 
-she_ini_plus::matching::token she_ini_plus::matching::token_generation(std::vector<char> character_stream) {
-  /*****/if (symbol_type_ == SYMBOL_TYPE::UNKNOWN) {
-    value_buffer_.clear();
-  } else if (symbol_type_ == SYMBOL_TYPE::WAITING) {
+she_ini_plus::matching::token
+she_ini_plus::matching::token_generation(std::vector<char> character_stream) {
+  /*****/if (matching::get_token_type(token_buffer_[tbp_]) == SYMBOL_TYPE::UNKNOWN) {
+
+  } else if (matching::get_token_type(token_buffer_[tbp_]) == SYMBOL_TYPE::WAITING) {
     // do nothing.
   }
 
+  get_token_status get_token_success{false};
   for(auto ch:character_stream) {
-    /***/if (symbol_table[ch] == SYMBOL_TYPE::MAY_COMMENTS) {
+    if (get_token_success) {
+
+    } else {
 
     }
-    else if (symbol_table[ch] == SYMBOL_TYPE::COMMENTS) {
-
-    }
-    else if (symbol_table[ch] == SYMBOL_TYPE::DELIMITER) {
-
-    }
-    else if (symbol_table[ch] == SYMBOL_TYPE::OPERATOR) {
-
-    }
-    else if (symbol_table[ch] == SYMBOL_TYPE::TYPE_DEFINE) {
-
-    }
-    else if (symbol_table[ch] == SYMBOL_TYPE::SECTION_BEGIN) {
-
-    }
-    else if (symbol_table[ch] == SYMBOL_TYPE::SECTION_END) {
-
-    }
-    else if (symbol_table[ch] == SYMBOL_TYPE::REFERENCE) {
-
-    }
-    else if (symbol_table[ch] == SYMBOL_TYPE::ESCAPE_CHAR) {
-
-    }
-    else {
-
-    }
+    get_token_success = this->single_character_processing(ch);
   }
 
-  return std::make_pair(symbol_type_,value_buffer_);
+  return token_buffer_[tbp_];
+}
+
+she_ini_plus::matching::get_token_status
+she_ini_plus::matching::single_character_processing(char ch) {
+
+  /***/if (symbol_table[ch] == SYMBOL_TYPE::MAY_COMMENTS) {
+    // '/' && '/' -> "//"
+    if (matching::get_token_type(token_buffer_[tbp_]) == SYMBOL_TYPE::MAY_COMMENTS) {
+      this->set_token_type(SYMBOL_TYPE::COMMENTS);
+      matching::get_token_str(token_buffer_[tbp_]).push_back(ch);
+      return true;
+    }
+    this->set_token_type(SYMBOL_TYPE::MAY_COMMENTS);
+    std::get<1>(token_buffer_[tbp_]).push_back(ch);
+    return false;
+  }
+  else if () {
+
+  }
+  else {
+    std::get<1>(token_buffer_[tbp_]).push_back(ch);
+    return false;
+  }
 }

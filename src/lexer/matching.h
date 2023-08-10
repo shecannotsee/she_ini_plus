@@ -7,6 +7,7 @@
 
 #include <tuple>
 #include <string>
+#include <utility>
 #include <vector>
 #include <symbol_table.h>
 
@@ -17,13 +18,34 @@ class matching {
   matching() = default;
   ~matching() = default;
 
- private:
-  SYMBOL_TYPE symbol_type_{SYMBOL_TYPE::UNKNOWN};   ///< temp to save matching status
-  std::string value_buffer_;                        ///< temp to save token str
-  std::string waiting_buffer_;                      ///< temp to save part of char stream
-
  public:
   using token = std::tuple<SYMBOL_TYPE,std::string>;
+
+ private:
+  static constexpr int DOUBLE_BUFFER_SIZE = 2;
+  token token_buffer_[DOUBLE_BUFFER_SIZE] = {
+      {SYMBOL_TYPE::UNKNOWN,""},
+      {SYMBOL_TYPE::UNKNOWN,""}
+  }; ///< temp to save token
+  int tbp_{0}; ///< double buffer pointer
+
+  void set_token_type(SYMBOL_TYPE symbol_type) {
+    std::get<0>(token_buffer_[tbp_]) = symbol_type;
+  }
+  void set_token_value(std::string str) {
+    std::get<1>(token_buffer_[tbp_]) = std::move(str);
+  }
+
+ private:
+  using get_token_status = bool;
+  /**
+   * @brief
+   * @param ch
+   * @return
+   */
+  get_token_status single_character_processing(char ch);
+
+ public:
   /**
    * @brief Convert char stream to token output
    * @param character_stream char stream
