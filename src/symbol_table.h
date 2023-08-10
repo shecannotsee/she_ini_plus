@@ -16,6 +16,8 @@ namespace she_ini_plus {
 enum class SYMBOL_TYPE : int {
   UNKNOWN,
   WAITING,      ///< Waiting for the next byte stream
+
+  MAY_COMMENTS, ///< '/'
   COMMENTS,     ///< Comments,like "//" in c/c++.
   DELIMITER,    ///< Delimiter,like ';' in c/c++.
   OPERATOR,     ///< Operator,like '=','+' int c/c++
@@ -24,7 +26,7 @@ enum class SYMBOL_TYPE : int {
   SECTION_END,  ///< "]"
   REFERENCE,    ///< "&"
   ESCAPE_CHAR,  ///< "'\'"
-  MAY_COMMENTS, ///< '/'
+  SPACE,        ///< " " and "\\t"
 };
 
 std::unordered_map<char, SYMBOL_TYPE> symbol_table {
@@ -44,6 +46,9 @@ std::unordered_map<char, SYMBOL_TYPE> symbol_table {
     {'&',   SYMBOL_TYPE::REFERENCE},
 
     {'\\',  SYMBOL_TYPE::ESCAPE_CHAR},
+
+    {' ',   SYMBOL_TYPE::SPACE},
+    {'\t',  SYMBOL_TYPE::SPACE}
 };
 
 /**
